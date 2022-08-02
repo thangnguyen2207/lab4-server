@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/layout}">
+	<head>
+	</head>
+	<body>
+		<div layout:fragment="menu" class="bg-light">
+			<ul class="nav nav-pills nav-stacked flex-column">
+				<li role="presentation">
+					<a class="nav-link" th:href="@{/project/add}" >Add Project</a>
+					<a class="nav-link" th:href="@{/project/list}">Project List</a>
+					<a class="nav-link" th:href="@{/project/list/search}">Project List (Search)</a>
+					<hr/>
+					<a class="nav-link" th:href="@{/employee/add}" >Add Employee</a>
+					<a class="nav-link" th:href="@{/employee/list}">Employee List</a>
+					<a class="nav-link" th:href="@{/employee/list/search}">Employee List (Search)</a>
+				</li>
+			</ul>
+		</div>
+		
+	</body>
+</html>
