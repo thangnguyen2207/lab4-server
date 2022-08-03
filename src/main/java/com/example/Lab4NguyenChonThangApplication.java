@@ -1,6 +1,7 @@
 package com.example;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,18 @@ public class Lab4NguyenChonThangApplication implements CommandLineRunner {
 		employeeService.saveEmployee(new Employee(0, null, "James", "Nestor", null, "James.Nestor@WPC.com"));
 		employeeService.saveEmployee(new Employee(0, null, "Rick", "Brown","360-287-8820", "Rick.Brown@WPC.com"));
 		
+		DateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+		projectService.addProject(new Project(0, null, "2013 Q3 Product Plan",  135.00, 
+				dateFormat.parse("2022-05-10"), dateFormat.parse("2022-06-15")));
+		projectService.addProject(new Project(0, null, "2013 Q3 Portfolio Analysis",  120.00, 
+				dateFormat.parse("2022-07-05"), dateFormat.parse("2022-07-25")));
+		projectService.addProject(new Project(0, null, "2013 Q3 Tax Preparation", 145.00, 
+				dateFormat.parse("2022-08-10"), dateFormat.parse("2022-10-15")));
+		projectService.addProject(new Project(0, null, "2013 Q4 Product Plan",  150.00, 
+				dateFormat.parse("2022-08-10"), dateFormat.parse("2022-09-15")));
+		projectService.addProject(new Project(0, null, "2013 Q4 Portfolio Analysis", 140.00, 
+				dateFormat.parse("2022-10-05"), null));
+		
 		List<Assignment> assignments = new ArrayList<>();
 		assignments.add(new Assignment(1, 1, 30.0));
 		assignments.add(new Assignment(1, 8, 75.0));
@@ -71,17 +84,6 @@ public class Lab4NguyenChonThangApplication implements CommandLineRunner {
 		assignments.add(new Assignment(5, 6, 27.5));
 		
 		assignmentService.saveAllAssignments(assignments);
-		
-		projectService.addProject(new Project(0, null, "2013 Q3 Product Plan",  135.00, 
-				DateFormat.getDateInstance().parse("2022-05-10"), DateFormat.getDateInstance().parse("2022-06-15")));
-		projectService.addProject(new Project(0, null, "2013 Q3 Portfolio Analysis",  120.00, 
-				DateFormat.getDateInstance().parse("2022-07-05"), DateFormat.getDateInstance().parse("2022-07-25")));
-		projectService.addProject(new Project(0, null, "2013 Q3 Tax Preparation", 145.00, 
-				DateFormat.getDateInstance().parse("2022-08-10"), DateFormat.getDateInstance().parse("2022-10-15")));
-		projectService.addProject(new Project(0, null, "2013 Q4 Product Plan",  150.00, 
-				DateFormat.getDateInstance().parse("2022-08-10"), DateFormat.getDateInstance().parse("2022-09-15")));
-		projectService.addProject(new Project(0, null, "2013 Q4 Portfolio Analysis", 140.00, 
-				DateFormat.getDateInstance().parse("2022-10-05"), null));
 	}
 
 }
