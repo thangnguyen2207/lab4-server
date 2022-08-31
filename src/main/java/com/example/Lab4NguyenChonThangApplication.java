@@ -39,7 +39,7 @@ public class Lab4NguyenChonThangApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userService.signup(new User("admin", "1"));
+		userService.signup(new User("admin", "$2a$12$m/VSds.jcHOZ7cnRLaE/1ezWdqxCljLUSYG0vhUrJ7HjWlWL3Kv8m"));
 		
 		employeeService.saveEmployee(new Employee(0, null, "Mary", "Jacobs", "360-285-8110", "Mary.Jacobs@WPC.com"));
 		employeeService.saveEmployee(new Employee(0, null, "Rosalie", "Jackson", "360-285-8120", "Rosalie.Jackson@WPC.com"));

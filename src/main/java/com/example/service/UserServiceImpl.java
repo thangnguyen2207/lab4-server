@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean existByUsername(String username) {
-		return userRepository.existsById(username);
+		return userRepository.findByUsername(username) != null;
 	}
 
 	@Override
@@ -26,4 +26,13 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 	}
 
+	@Override
+	public User findUserById(Integer id) {
+		return userRepository.getById(id);
+	}
+
+	@Override
+	public User findUserByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 }

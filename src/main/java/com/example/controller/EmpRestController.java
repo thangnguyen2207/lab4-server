@@ -3,6 +3,8 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,65 +18,55 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.Employee;
 import com.example.model.EmployeeSearch;
+import com.example.model.ResponseBody;
 import com.example.service.EmployeeService;
-import com.example.utils.Response;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/api/employee")
 public class EmpRestController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@CrossOrigin
 	@GetMapping("/list")
-	public List<Employee> getEmployees() {
+	public ResponseEntity<?> getEmployees() {
 		List<Employee> employees = employeeService.getEmployees();
-		return employees;
+		return new ResponseEntity<>(new ResponseBody<>(0, employees), HttpStatus.OK);
 	}
 	
-	@CrossOrigin
 	@GetMapping("/list/search/{proId}")
-	public List<EmployeeSearch> getEmployeeSearchs(@PathVariable int proId) {
-		log.info(proId + "");
+	public ResponseEntity<?> getEmployeeSearchs(@PathVariable int proId) {
 		List<EmployeeSearch> employeeSearchs = employeeService.getAssignedEmployeesByProId(proId);
-		return employeeSearchs;
+		return new ResponseEntity<>(new ResponseBody<>(0, employeeSearchs), HttpStatus.OK);
 	}
 	
-	@CrossOrigin
 	@GetMapping("/{proId}/assign")
-	public List<EmployeeSearch> getAssignedEmployees(@PathVariable int proId) {
+	public ResponseEntity<?> getAssignedEmployees(@PathVariable int proId) {
 		List<EmployeeSearch> assignedEmployee = employeeService.getAssignedEmployeesByProId(proId);
-		return assignedEmployee;
+		return new ResponseEntity<>(new ResponseBody<>(0, assignedEmployee), HttpStatus.OK);
 	}
 	
-	@CrossOrigin
 	@GetMapping("/{proId}/notAssign")
-	public List<EmployeeSearch> getNotAssignEmployees(@PathVariable int proId) {
+	public ResponseEntity<?> getNotAssignEmployees(@PathVariable int proId) {
 		List<EmployeeSearch> notAssignEmployees = employeeService.getNotAssignedEmployeesByProId(proId);
-		return notAssignEmployees;
+		return new ResponseEntity<>(new ResponseBody<>(0, notAssignEmployees), HttpStatus.OK);
 	}
 
-	@CrossOrigin
 	@PostMapping("/add")
-	public Response addEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
 		employeeService.saveEmployee(employee);
-		return new Response(0, "");
+		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
 	}
 	
-	@CrossOrigin
 	@PutMapping("/update")
-	public Response updateEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
 		employeeService.saveEmployee(employee);
-		return new Response(0, "");
+		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
 	}
 	
-	@CrossOrigin
 	@DeleteMapping("/delete")
-	public Response deleteEmployee(@RequestParam int empId) {
+	public ResponseEntity<?> deleteEmployee(@RequestParam int empId) {
 		employeeService.deleteEmployeesById(empId);
-		return new Response(0, "");
+		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
 	}
 }
