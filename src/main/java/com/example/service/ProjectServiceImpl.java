@@ -27,10 +27,15 @@ public class ProjectServiceImpl implements ProjectService {
 	public void addProject(Project project) {
 		projectRepository.save(project);
 	}
-
+	
 	@Override
 	public void deleteProject(int id) {
 		projectRepository.deleteById(id);
+	}
+
+	@Override
+	public void updateProject(Project project) {
+		projectRepository.save(project);
 	}	
 	
 }
