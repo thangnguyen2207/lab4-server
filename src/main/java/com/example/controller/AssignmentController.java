@@ -28,9 +28,16 @@ public class AssignmentController {
 	@PostMapping("/{proId}")
 	public ResponseEntity<?> assignEmployee(@PathVariable int proId, @RequestBody List<EmployeeSearch> empSearchs) {
 		List<Assignment> assignments = new ArrayList<>();
+		List<Integer> ids = new ArrayList<>();
 		empSearchs.forEach((emp) -> {
-			assignments.add(new Assignment(proId, emp.getEmployeeId(), emp.getHoursWorked()));
+			if (emp.isChanged()) {
+				assignments.add(new Assignment(proId, emp.getEmployeeId(), emp.getHoursWorked()));
+			}
+			if (emp.isDeleted()) {
+				ids.add(emp.getEmployeeId());
+			}
 		});
+		assignmentService.deleteAssignments(proId, ids);
 		assignmentService.saveAllAssignments(assignments);
 		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
 	}
