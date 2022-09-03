@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.Employee;
 import com.example.model.EmployeeSearch;
-import com.example.model.ResponseBody;
 import com.example.service.EmployeeService;
 
 @CrossOrigin
@@ -30,42 +29,42 @@ public class EmpRestController {
 	@GetMapping("/list")
 	public ResponseEntity<?> getEmployees() {
 		List<Employee> employees = employeeService.getEmployees();
-		return new ResponseEntity<>(new ResponseBody<>(0, employees), HttpStatus.OK);
+		return new ResponseEntity<>(employees, HttpStatus.OK);
 	}
 	
 	@GetMapping("/list/search/{proId}")
 	public ResponseEntity<?> getEmployeeSearchs(@PathVariable int proId) {
 		List<EmployeeSearch> employeeSearchs = employeeService.getAssignedEmployeesByProId(proId);
-		return new ResponseEntity<>(new ResponseBody<>(0, employeeSearchs), HttpStatus.OK);
+		return new ResponseEntity<>(employeeSearchs, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{proId}/assign")
 	public ResponseEntity<?> getAssignedEmployees(@PathVariable int proId) {
 		List<EmployeeSearch> assignedEmployee = employeeService.getAssignedEmployeesByProId(proId);
-		return new ResponseEntity<>(new ResponseBody<>(0, assignedEmployee), HttpStatus.OK);
+		return new ResponseEntity<>(assignedEmployee, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{proId}/notAssign")
 	public ResponseEntity<?> getNotAssignEmployees(@PathVariable int proId) {
 		List<EmployeeSearch> notAssignEmployees = employeeService.getNotAssignedEmployeesByProId(proId);
-		return new ResponseEntity<>(new ResponseBody<>(0, notAssignEmployees), HttpStatus.OK);
+		return new ResponseEntity<>(notAssignEmployees, HttpStatus.OK);
 	}
 
 	@PostMapping("/add")
 	public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
 		employeeService.saveEmployee(employee);
-		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PostMapping("/update")
 	public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
 		employeeService.saveEmployee(employee);
-		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> deleteEmployee(@RequestParam int empId) {
 		employeeService.deleteEmployeesById(empId);
-		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

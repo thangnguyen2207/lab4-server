@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.Assignment;
 import com.example.model.EmployeeSearch;
-import com.example.model.ResponseBody;
 import com.example.service.AssignmentService;
 
 @CrossOrigin
@@ -32,14 +31,13 @@ public class AssignmentController {
 		empSearchs.forEach((emp) -> {
 			if (emp.isChanged()) {
 				assignments.add(new Assignment(proId, emp.getEmployeeId(), emp.getHoursWorked()));
-			}
-			if (emp.isDeleted()) {
+			} else if (emp.isDeleted()) {
 				ids.add(emp.getEmployeeId());
 			}
 		});
 		assignmentService.deleteAssignments(proId, ids);
 		assignmentService.saveAllAssignments(assignments);
-		return new ResponseEntity<>(new ResponseBody<>(0, "OK"), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 
