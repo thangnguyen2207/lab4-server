@@ -29,10 +29,11 @@ public class AssignmentController {
 		List<Assignment> assignments = new ArrayList<>();
 		List<Integer> ids = new ArrayList<>();
 		empSearchs.forEach((emp) -> {
+			if (emp.isDeleted()) {
+				ids.add(emp.getEmployeeId());
+			} else
 			if (emp.isChanged()) {
 				assignments.add(new Assignment(proId, emp.getEmployeeId(), emp.getHoursWorked()));
-			} else if (emp.isDeleted()) {
-				ids.add(emp.getEmployeeId());
 			}
 		});
 		assignmentService.deleteAssignments(proId, ids);

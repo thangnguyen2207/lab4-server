@@ -10,11 +10,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jwt.JwtTokenProvider;
+import com.example.model.MyToken;
 import com.example.model.User;
 
 @CrossOrigin(exposedHeaders = "token")
@@ -41,8 +41,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/authorize")
-	public ResponseEntity<?> isAuthorized() {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<?> isAuthorized(@RequestBody MyToken token) {
+		if (tokenProvider.validateToken(token.getToken())) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 	}
 	
 }
